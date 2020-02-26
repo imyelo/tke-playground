@@ -1,9 +1,9 @@
 {
   "private": true,
-  "name": "sayhi",
+  "name": "sayhi-cronjob",
   "version": "0.0.0",
   "author": "yelo <zhihuzeye@gmail.com>",
-  "homepage": "https://github.com/imyelo/tke-playground/tree/master/packages/sayhi#readme",
+  "homepage": "https://github.com/imyelo/tke-playground/tree/master/packages/sayhi-cronjob#readme",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
@@ -16,8 +16,7 @@
     "build": "ncc build ./src -o ./dist"
   },
   "dependencies": {
-    "ioredis": "^4.16.0",
-    "micro": "^9.3.4"
+    "ioredis": "^4.16.0"
   },
   "devDependencies": {
     "@zeit/ncc": "^0.21.1"
