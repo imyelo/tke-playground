@@ -1,0 +1,24 @@
+{
+  "private": true,
+  "name": "tke-playground",
+  "version": "0.0.0",
+  "description": "",
+  "repository": {
+    "url": "imyelo/tke-playground",
+    "type": "git"
+  },
+  "scripts": {
+    "precommit": "lint-staged"
+  },
+  "author": "yelo",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/imyelo/tke-playground/issues"
+  },
+  "homepage": "https://github.com/imyelo/tke-playground#readme",
+  "devDependencies": {
+    "lerna": "^3.20.2",
+    "lint-staged": "^8.2.1",
+    "prettier": "^1.18.2"
+  }
+}
