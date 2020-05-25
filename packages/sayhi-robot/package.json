@@ -1,0 +1,19 @@
+{
+  "private": true,
+  "name": "sayhi-robot",
+  "version": "0.0.0",
+  "author": "yelo <zhihuzeye@gmail.com>",
+  "homepage": "https://github.com/imyelo/tke-playground/tree/master/packages/sayhi-robot#readme",
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "ncc build ./src -o ./dist"
+  },
+  "dependencies": {
+    "cron": "^1.8.2",
+    "got": "^11.1.4",
+    "pino": "^6.2.1"
+  },
+  "devDependencies": {
+    "@zeit/ncc": "^0.22.3"
+  }
+}
