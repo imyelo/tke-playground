@@ -1,9 +1,9 @@
 {
   "private": true,
-  "name": "sayhi-robot",
+  "name": "sayhi-checker",
   "version": "0.0.0",
   "author": "yelo <zhihuzeye@gmail.com>",
-  "homepage": "https://github.com/imyelo/tke-playground/tree/master/packages/sayhi-robot#readme",
+  "homepage": "https://github.com/imyelo/tke-playground/tree/master/packages/sayhi-checker#readme",
   "license": "Apache-2.0",
   "scripts": {
     "build": "ncc build ./src -o ./dist"
