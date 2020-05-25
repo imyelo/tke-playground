@@ -2,7 +2,7 @@ const { CronJob } = require('cron')
 const job = require('./job')
 const logger = require('./logger')
 
-const SCHEDULE = '0 */5 * * * *'
+const SCHEDULE = process.env.APP_SCHEDULE || '0 */5 * * * *'
 
 const cron = new CronJob(SCHEDULE, () => job())
 
