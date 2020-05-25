@@ -1,7 +1,7 @@
 const got = require('got')
 const logger = require('./logger')
 
-const SAYHI_ENDPOINT = process.env.SAYHI_ENDPOINT || 'http://127.0.0.1:3000'
+const SAYHI_ENDPOINT = process.env.SAYHI_ENDPOINT || 'http://127.0.0.1:3000/'
 
 const job = async () => {
   try {
