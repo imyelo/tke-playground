@@ -339,6 +339,10 @@ spec:
         metadata:
           labels:
             app: cronjob
+          annotations:
+            # disable istio on the pod due to this issue:
+            # https://github.com/istio/istio/issues/11659
+            sidecar.istio.io/inject: "false"
         spec:
           containers:
             - image: ccr.ccs.tencentyun.com/yelozyhuang/sayhi-cronjob:20200527.1
