@@ -12,7 +12,8 @@
     "cron": "^1.8.2",
     "got": "^11.1.4",
     "nanoid": "^3.1.9",
-    "pino": "^6.2.1"
+    "pino": "^6.2.1",
+    "random": "^2.2.0"
   },
   "devDependencies": {
     "@zeit/ncc": "^0.22.3"
