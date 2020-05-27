@@ -8,3 +8,4 @@ spec:
   finalizers:
     - kubernetes
 ---
+# Notes: you should manually inject secret key of hub on QCloud Web GUI after creating this namespace
