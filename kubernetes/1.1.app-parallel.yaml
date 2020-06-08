@@ -226,6 +226,63 @@ apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
   labels:
+    app: delayer-3
+  name: delayer-3
+  namespace: sayhi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: delayer-3
+  template:
+    metadata:
+      labels:
+        app: delayer-3
+    spec:
+      containers:
+        - image: ccr.ccs.tencentyun.com/yelozyhuang/sayhi-delayer:20200527.1
+          imagePullPolicy: IfNotPresent
+          name: sayhi-delayer
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+          env:
+            - name: APP_TARGET
+              value: http://merger-1/
+          resources:
+            limits:
+              cpu: 50m
+              memory: 256Mi
+            requests:
+              cpu: 20m
+              memory: 128Mi
+      imagePullSecrets:
+        - name: qcloudregistrykey
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: delayer-3
+  namespace: sayhi
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: 3000
+      protocol: TCP
+  selector:
+    app: delayer-3
+  type: ClusterIP
+---
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  labels:
     app: merger-1
   name: merger-1
   namespace: sayhi
