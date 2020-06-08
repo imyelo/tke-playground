@@ -12,6 +12,14 @@ arg@4.1.0:
   resolved "https://registry.npm.taobao.org/arg/download/arg-4.1.0.tgz#583c518199419e0037abb74062c37f8519e575f0"
   integrity sha1-WDxRgZlBngA3q7dAYsN/hRnldfA=
 
+babel-runtime@^6.26.0:
+  version "6.26.0"
+  resolved "http://r.tnpm.oa.com/babel-runtime/download/babel-runtime-6.26.0.tgz#965c7058668e82b55d7bfe04ff2337bc8b5647fe"
+  integrity sha1-llxwWGaOgrVde/4E/yM3vItWR/4=
+  dependencies:
+    core-js "^2.4.0"
+    regenerator-runtime "^0.11.0"
+
 bytes@3.0.0:
   version "3.0.0"
   resolved "https://registry.npm.taobao.org/bytes/download/bytes-3.0.0.tgz#d32815404d689699f85a4ea4fa8755dd13a96048"
@@ -26,6 +34,11 @@ content-type@1.0.4:
   version "1.0.4"
   resolved "https://registry.npm.taobao.org/content-type/download/content-type-1.0.4.tgz#e138cc75e040c727b1966fe5e5f8c9aee256fe3b"
   integrity sha1-4TjMdeBAxyexlm/l5fjJruJW/js=
+
+core-js@^2.4.0:
+  version "2.6.11"
+  resolved "http://r.tnpm.oa.com/core-js/download/core-js-2.6.11.tgz#38831469f9922bded8ee21c9dc46985e0399308c"
+  integrity sha1-OIMUafmSK97Y7iHJ3EaYXgOZMIw=
 
 debug@^4.1.1:
   version "4.1.1"
@@ -114,6 +127,26 @@ ms@^2.1.1:
   resolved "https://registry.npm.taobao.org/ms/download/ms-2.1.2.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fms%2Fdownload%2Fms-2.1.2.tgz#d09d1f357b443f493382a8eb3ccd183872ae6009"
   integrity sha1-0J0fNXtEP0kzgqjrPM0YOHKuYAk=
 
+ow-lite@^0.0.2:
+  version "0.0.2"
+  resolved "http://r.tnpm.oa.com/ow-lite/download/ow-lite-0.0.2.tgz#df9f500e6740b6590a1e9a965730d49a8eb597d1"
+  integrity sha1-359QDmdAtlkKHpqWVzDUmo61l9E=
+
+ow@^0.4.0:
+  version "0.4.0"
+  resolved "http://r.tnpm.oa.com/ow/download/ow-0.4.0.tgz#119a846d23738ce11677331fef8a3fbe019eb05b"
+  integrity sha1-EZqEbSNzjOEWdzMf74o/vgGesFs=
+
+random@^2.2.0:
+  version "2.2.0"
+  resolved "http://r.tnpm.oa.com/random/download/random-2.2.0.tgz#a02cd920e2f50713ad8070b3b76c01439cc51c1c"
+  integrity sha1-oCzZIOL1BxOtgHCzt2wBQ5zFHBw=
+  dependencies:
+    babel-runtime "^6.26.0"
+    ow "^0.4.0"
+    ow-lite "^0.0.2"
+    seedrandom "^3.0.5"
+
 raw-body@2.3.2:
   version "2.3.2"
   resolved "https://registry.npm.taobao.org/raw-body/download/raw-body-2.3.2.tgz#bcd60c77d3eb93cde0050295c3f379389bc88f89"
@@ -140,6 +173,16 @@ redis-parser@^3.0.0:
   integrity sha1-tm2CjNyv5rS4pCin3vTGvKwxyLQ=
   dependencies:
     redis-errors "^1.0.0"
+
+regenerator-runtime@^0.11.0:
+  version "0.11.1"
+  resolved "http://r.tnpm.oa.com/regenerator-runtime/download/regenerator-runtime-0.11.1.tgz#be05ad7f9bf7d22e056f9726cee5017fbf19e2e9"
+  integrity sha1-vgWtf5v30i4Fb5cmzuUBf78Z4uk=
+
+seedrandom@^3.0.5:
+  version "3.0.5"
+  resolved "http://r.tnpm.oa.com/seedrandom/download/seedrandom-3.0.5.tgz#54edc85c95222525b0c7a6f6b3543d8e0b3aa0a7"
+  integrity sha1-VO3IXJUiJSWwx6b2s1Q9jgs6oKc=
 
 setprototypeof@1.0.3:
   version "1.0.3"

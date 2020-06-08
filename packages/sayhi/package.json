@@ -18,7 +18,8 @@
   "dependencies": {
     "delay": "^4.3.0",
     "ioredis": "^4.16.0",
-    "micro": "^9.3.4"
+    "micro": "^9.3.4",
+    "random": "^2.2.0"
   },
   "devDependencies": {
     "@zeit/ncc": "^0.21.1"
