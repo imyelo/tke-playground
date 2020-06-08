@@ -34,6 +34,11 @@ debug@^4.1.1:
   dependencies:
     ms "^2.1.1"
 
+delay@^4.3.0:
+  version "4.3.0"
+  resolved "http://r.tnpm.oa.com/delay/download/delay-4.3.0.tgz#efeebfb8f545579cb396b3a722443ec96d14c50e"
+  integrity sha1-7+6/uPVFV5yzlrOnIkQ+yW0UxQ4=
+
 denque@^1.1.0:
   version "1.4.1"
   resolved "https://registry.npm.taobao.org/denque/download/denque-1.4.1.tgz#6744ff7641c148c3f8a69c307e51235c1f4a37cf"

@@ -4,3 +4,4 @@ exports.REDIS_PASSWORD = process.env.REDIS_PASSWORD || ''
 exports.REDIS_DB = +process.env.REDIS_DB || 0
 
 exports.CACHE_KEY = process.env.APP_CACHE_KEY || 'job'
+exports.DELAY_MAXIMUM = +process.env.APP_DELAY_MAXIMUM || 200
