@@ -65,7 +65,7 @@ spec:
         app: core
     spec:
       containers:
-        - image: ccr.ccs.tencentyun.com/yelozyhuang/sayhi:20200608.1
+        - image: ccr.ccs.tencentyun.com/yelozyhuang/sayhi:20200608.2
           imagePullPolicy: IfNotPresent
           name: sayhi
           ports:
