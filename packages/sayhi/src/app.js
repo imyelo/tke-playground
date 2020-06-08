@@ -1,4 +1,5 @@
 const delay = require('delay')
+const random = require('random')
 const redis = require('./redis')
 const { CACHE_KEY, DELAY_MAXIMUM } = require('./env')
 
