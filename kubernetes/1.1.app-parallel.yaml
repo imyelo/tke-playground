@@ -1,0 +1,370 @@
+apiVersion: apps/v1beta2
+kind: StatefulSet
+metadata:
+  labels:
+    app: redis
+  name: redis
+  namespace: sayhi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+        - image: redis
+          imagePullPolicy: Always
+          name: redis
+          resources:
+            limits:
+              cpu: 100m
+              memory: 256Mi
+            requests:
+              cpu: 50m
+              memory: 128Mi
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+  namespace: sayhi
+spec:
+  ports:
+    - name: redis
+      port: 6379
+      targetPort: 6379
+      protocol: TCP
+  selector:
+    app: redis
+  type: ClusterIP
+---
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  labels:
+    app: core
+  name: core
+  namespace: sayhi
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: core
+  template:
+    metadata:
+      labels:
+        app: core
+    spec:
+      containers:
+        - image: ccr.ccs.tencentyun.com/yelozyhuang/sayhi:20200608.1
+          imagePullPolicy: IfNotPresent
+          name: sayhi
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+          env:
+            - name: REDIS_HOST
+              value: redis
+            - name: REDIS_PORT
+              value: '6379'
+          resources:
+            limits:
+              cpu: 50m
+              memory: 256Mi
+            requests:
+              cpu: 20m
+              memory: 128Mi
+      imagePullSecrets:
+        - name: qcloudregistrykey
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: core
+  namespace: sayhi
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: 3000
+      protocol: TCP
+  selector:
+    app: core
+  type: ClusterIP
+---
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  labels:
+    app: delayer-1
+  name: delayer-1
+  namespace: sayhi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: delayer-1
+  template:
+    metadata:
+      labels:
+        app: delayer-1
+    spec:
+      containers:
+        - image: ccr.ccs.tencentyun.com/yelozyhuang/sayhi-delayer:20200527.1
+          imagePullPolicy: IfNotPresent
+          name: sayhi-delayer
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+          env:
+            - name: APP_TARGET
+              value: http://core/
+          resources:
+            limits:
+              cpu: 50m
+              memory: 256Mi
+            requests:
+              cpu: 20m
+              memory: 128Mi
+      imagePullSecrets:
+        - name: qcloudregistrykey
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: delayer-1
+  namespace: sayhi
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: 3000
+      protocol: TCP
+  selector:
+    app: delayer-1
+  type: ClusterIP
+---
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  labels:
+    app: delayer-2
+  name: delayer-2
+  namespace: sayhi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: delayer-2
+  template:
+    metadata:
+      labels:
+        app: delayer-2
+    spec:
+      containers:
+        - image: ccr.ccs.tencentyun.com/yelozyhuang/sayhi-delayer:20200527.1
+          imagePullPolicy: IfNotPresent
+          name: sayhi-delayer
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+          env:
+            - name: APP_TARGET
+              value: http://core/
+            - name: DELAY_MAXIMUM
+              value: '5000'
+          resources:
+            limits:
+              cpu: 50m
+              memory: 256Mi
+            requests:
+              cpu: 20m
+              memory: 128Mi
+      imagePullSecrets:
+        - name: qcloudregistrykey
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: delayer-2
+  namespace: sayhi
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: 3000
+      protocol: TCP
+  selector:
+    app: delayer-2
+  type: ClusterIP
+---
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  labels:
+    app: merger-1
+  name: merger-1
+  namespace: sayhi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: merger-1
+  template:
+    metadata:
+      labels:
+        app: merger-1
+    spec:
+      containers:
+        - image: ccr.ccs.tencentyun.com/yelozyhuang/sayhi-merger:20200608.1
+          imagePullPolicy: IfNotPresent
+          name: sayhi-merger
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+          env:
+            - name: APP_TARGETS
+              value: '["http://delayer-2/", "http://delayer-1/"]'
+          resources:
+            limits:
+              cpu: 50m
+              memory: 256Mi
+            requests:
+              cpu: 20m
+              memory: 128Mi
+      imagePullSecrets:
+        - name: qcloudregistrykey
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: merger-1
+  namespace: sayhi
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: 3000
+      protocol: TCP
+  selector:
+    app: merger-1
+  type: ClusterIP
+---
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  labels:
+    app: checker
+  name: checker
+  namespace: sayhi
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: checker
+  template:
+    metadata:
+      labels:
+        app: checker
+    spec:
+      containers:
+        - image: ccr.ccs.tencentyun.com/yelozyhuang/sayhi-checker:20200527.1
+          imagePullPolicy: IfNotPresent
+          name: sayhi-checker
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+          env:
+            - name: SAYHI_ENDPOINT
+              value: http://delayer-3/
+          resources:
+            limits:
+              cpu: 50m
+              memory: 256Mi
+            requests:
+              cpu: 20m
+              memory: 128Mi
+      imagePullSecrets:
+        - name: qcloudregistrykey
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  labels:
+    app: cronjob
+  name: cronjob
+  namespace: sayhi
+spec:
+  concurrencyPolicy: Allow
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      completions: 1
+      parallelism: 1
+      template:
+        metadata:
+          labels:
+            app: cronjob
+          annotations:
+            # disable istio on the pod due to this issue:
+            # https://github.com/istio/istio/issues/11659
+            sidecar.istio.io/inject: 'false'
+        spec:
+          containers:
+            - image: ccr.ccs.tencentyun.com/yelozyhuang/sayhi-cronjob:20200527.1
+              imagePullPolicy: IfNotPresent
+              name: sayhi-cronjob
+              env:
+                - name: REDIS_HOST
+                  value: redis
+                - name: REDIS_PORT
+                  value: '6379'
+              resources:
+                limits:
+                  cpu: 50m
+                  memory: 256Mi
+                requests:
+                  cpu: 20m
+                  memory: 128Mi
+          restartPolicy: OnFailure
+          imagePullSecrets:
+            - name: qcloudregistrykey
+  schedule: '*/5 * * * *'
+  successfulJobsHistoryLimit: 3
+  suspend: false
+---
+
