@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: sayhi
+  labels:
+    istio.io/rev: 1-6-6
+spec:
+  finalizers:
+    - kubernetes
+---
+# Notes: you should manually inject secret key of hub on QCloud Web GUI after creating this namespace
