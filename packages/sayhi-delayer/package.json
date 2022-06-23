@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "delay": "^4.3.0",
-    "got": "^11.1.4",
+    "got": "^11.8.5",
     "just-pick": "^2.1.0",
     "micro": "^9.3.4",
     "random": "^2.2.0"
